@@ -29,3 +29,5 @@ Tapi desain yang saya inginkan yang menjadi root bridge itu switch1 bukan switch
 ![alt text](IMG/STP/image-3.png)
 ![alt text](IMG/STP/image-4.png)
 ![alt text](IMG/STP/image-5.png)
+
+## File pkt simulasi dapat didownload di ``pkt/spanningTreeProtocol.pkt``
