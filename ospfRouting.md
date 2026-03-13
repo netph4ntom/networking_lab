@@ -55,7 +55,7 @@ ini biasa disebut ``Triggered Update``
 
 ## Simulasi Routing OSPF
 ### Single area
-![alt text](image-1.png)
+![alt text](IMG/ospf/image-1.png)
 Topologi ini merupakan simulasi OSPF single-area dengan tiga router (R0, R1, dan R2) yang saling terhubung dalam Area 0 sebagai backbone. Konfigurasi ini memungkinkan router membentuk neighbor dan bertukar informasi routing untuk menentukan jalur terbaik menggunakan algoritma SPF.
 
 ### R0 konfigurasi
@@ -131,7 +131,7 @@ Building configuration...
 ```
 
 ### Multi Area
-![alt text](image.png)
+![alt text](IMG/ospf/image.png)
 Topologi ini merupakan simulasi OSPF multi-area dengan Area 0 sebagai backbone yang menghubungkan Area 10 dan Area 20. Router R1 dan R2 berperan sebagai ABR yang menghubungkan jaringan di masing-masing area, yaitu 192.16.10.0/24 pada Area 10 dan 192.16.20.0/24 pada Area 20. Komunikasi antar area dilakukan melalui Area 0 sebagai pusat pertukaran routing.
 
 ### R1 konfigurasi
