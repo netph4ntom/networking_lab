@@ -186,15 +186,20 @@ Trace complete.
 ```
 > Hasil ping dan tracert setelah R1 dimatikan menunjukkan bahwa mekanisme failover HSRP berjalan dengan baik. Meskipun sempat terjadi sedikit kenaikan latency (hingga 23 ms) yang kemungkinan terjadi saat proses perpindahan Active Router, koneksi tetap stabil tanpa packet loss. Dari hasil tracert, terlihat bahwa hop pertama berubah menjadi 10.10.10.2 yang menandakan R2 kini menjadi Active Router dan berfungsi sebagai gateway, menggantikan R1. Hal ini membuktikan bahwa HSRP berhasil menjaga ketersediaan jaringan, karena meskipun router utama mati, trafik tetap dapat diteruskan melalui router cadangan tanpa gangguan signifikan.
 
-## Troubleshooting
-1. Perintah lanjutan
-- ```standby track``` digunakan untuk monitor interface / link tertentu.
-    ```bash
-    standby 1 track fa0/0 20
-    # Kalau interface down maka priority turun 20, jadi router lain bisa take over.
-    ```
-- ```standby timers``` digunakan untuk mengatur kecepatan failover.
-    ```bash
-    standby 1 timers 1 3
-    # hello 1 detik dan hold 3 detik
-    ```
+## Konfigurasi lanjutan
+1. Pelacakan Interface (Interface Tracking):Memungkinkan HSRP memantau status interface tertentu dan melakukan failover jika interface tersebut mati:
+```bash
+R1-Primary(config)# track 1 interface serial 0/0/0 line-protocol
+R1-Primary(config)# interface fastethernet 0/0
+R1-Primary(config-if)# standby 1 track 1 decrement 30 (Jika serial 0/0/0 down, prioritas turun 30)
+```
+2. Konfigurasi Otentikasi (Authentication):Untuk tujuan keamanan, HSRP bisa diatur dengan otentikasi:
+```bash
+R1-Primary(config-if)# standby 1 authentication md5 key-string "MySecureKey"
+R2-Backup(config-if)# standby 1 authentication md5 key-string "MySecureKey"
+```
+3. Penyesuaian Timer:Timer HSRP standar bisa diubah untuk konvergensi yang lebih cepat:
+```bash
+R1-Primary(config-if)# standby 1 timers 1 3 (Hello 1 detik, Holdtime 3 detik)
+R2-Backup(config-if)# standby 1 timers 1 3
+```
